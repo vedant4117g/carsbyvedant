@@ -56,9 +56,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* STEP 1: WELCOME SCREEN */
-        .hero { text-align: center; padding: 2.5rem 1rem 2rem; max-width: 800px; margin: 0 auto; }
-        .hero-tag { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
+        /* STEP 1: WELCOME SCREEN (SHOWROOM EXPERIENCE) */
+        .hero { text-align: center; padding: 2.5rem 1rem 2rem; max-width: 850px; margin: 0 auto; }
+        .hero-tag { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--accent-cyan); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
         .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 0.8rem; line-height: 1.2; }
         .hero p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
 
@@ -195,15 +195,15 @@
             </div>
             <span class="brand-text">CARSBYVEDANT</span>
         </div>
-        <div class="fleet-status" id="fleetCounter">TELEMETRY ONLINE</div>
+        <div class="fleet-status" id="fleetCounter">SHOWROOM LIVE</div>
     </header>
 
-    <!-- STAGE 1: WELCOME SCREEN (ALL 8 AUTHENTIC LOGOS) -->
+    <!-- STAGE 1: WELCOME SCREEN (SHOWROOM EXPERIENCE) -->
     <section id="welcomeStage" class="stage-view active">
         <div class="hero">
-            <span class="hero-tag">Precision Engineering</span>
-            <h1>SELECT MARQUE</h1>
-            <p>Access our curated fleet of benchmark performance machines and hypercars. Tap any manufacturer crest below to view inventory.</p>
+            <span class="hero-tag">EXCLUSIVE AUTOMOTIVE SHOWROOM</span>
+            <h1>EXPLORE BY BRAND</h1>
+            <p>Welcome to CarsByVedant. Experience the world's finest luxury sedans, performance machines, and hypercars under one roof. Tap any brand below to explore available models and reserve your test drive.</p>
         </div>
         <div class="brand-marquee-grid" id="brandCardsContainer"></div>
     </section>
@@ -221,7 +221,7 @@
     <section id="detailStage" class="stage-view">
         <div class="nav-breadcrumb-bar">
             <button class="btn-nav-back" onclick="showStage('fleetStage')">&larr; BACK TO MODELS</button>
-            <div class="fleet-status">MACHINE SPECIFICATION</div>
+            <div class="fleet-status">VEHICLE SPECIFICATIONS</div>
         </div>
 
         <div class="detail-card-panel">
@@ -269,7 +269,7 @@
         var activeBrand = 'ALL';
         var currentCar = null;
 
-        // 100% UNTOUCHED VERIFIED LOGOS (BMW, Porsche, Ferrari, Lambo, Audi, Mercedes kept exact + McLaren & Aston Martin restored)
+        // 100% UNTOUCHED VERIFIED LOGOS (Kept exact)
         var brandRealLogos = {
             'BMW': 'https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg',
             'Audi': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg',
@@ -283,7 +283,7 @@
             'Aston Martin': '<svg viewBox="0 0 100 100"><defs><linearGradient id="amChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#64748b"/></linearGradient></defs><path d="M10 50 C25 41 40 43 50 53 C60 43 75 41 90 50 C80 58 65 56 50 63 C35 56 20 58 10 50 Z" fill="#004d30" stroke="url(#amChrome)" stroke-width="2"/><rect x="33" y="47" width="34" height="12" rx="2" fill="#000" stroke="#fff" stroke-width="1"/><text x="50" y="55.5" font-family="Arial, sans-serif" font-weight="bold" font-size="4.3" fill="#fff" text-anchor="middle">ASTON MARTIN</text></svg>'
         };
 
-        // ACCURATE 1:1 MODEL IMAGE MATCHER
+        // ACCURATE 1:1 MODEL IMAGE MATCHER (100% UNTOUCHED)
         function getCarImage(modelName, brand, dbUrl) {
             var m = (modelName || '').toLowerCase().trim();
             var b = (brand || '').toLowerCase().trim();
@@ -391,7 +391,7 @@
         function renderGrid(list) {
             var grid = document.getElementById('carGrid');
             grid.innerHTML = '';
-            document.getElementById('fleetCounter').innerText = list.length + ' CARS ONLINE';
+            document.getElementById('fleetCounter').innerText = list.length + ' VEHICLES IN SHOWROOM';
 
             if (!list || list.length === 0) {
                 grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #8c9ba5; padding: 4rem;">No vehicles found for ' + activeBrand + '.</div>';
@@ -432,14 +432,14 @@
                         '</div>' +
                         '<div class="card-footer">' +
                             '<div class="price-val">' + priceVal + '</div>' +
-                            '<button class="btn-inspect">INSPECT &rarr;</button>' +
+                            '<button class="btn-inspect">VIEW DETAILS &rarr;</button>' +
                         '</div>' +
                     '</div>';
                 grid.appendChild(card);
             }
         }
 
-        // STAGE 3: OPEN CAR FULL TELEMETRY & BOOKING FORM
+        // STAGE 3: OPEN CAR FULL SPECIFICATIONS & BOOKING FORM
         function openCarDetails(car) {
             currentCar = car;
             var brandName = car.brand || activeBrand;
@@ -456,7 +456,7 @@
             document.getElementById('detailSpeed').innerText = car.topSpeed || '305 km/h';
 
             document.getElementById('carModelInput').value = fullTitle;
-            document.getElementById('bookingDetailDesc').innerText = 'Reserve track session for ' + fullTitle + '.';
+            document.getElementById('bookingDetailDesc').innerText = 'Reserve track test drive session for ' + fullTitle + '.';
 
             showStage('detailStage');
         }
@@ -504,10 +504,10 @@
             })
             .then(function(data) {
                 carsCache = data || [];
-                document.getElementById('fleetCounter').innerText = carsCache.length + ' CARS ONLINE';
+                document.getElementById('fleetCounter').innerText = carsCache.length + ' VEHICLES IN SHOWROOM';
             })
             .catch(function(err) {
-                document.getElementById('fleetCounter').innerText = 'STANDBY MODE';
+                document.getElementById('fleetCounter').innerText = 'SHOWROOM STANDBY';
             });
     </script>
 </body>
