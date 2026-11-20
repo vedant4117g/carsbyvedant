@@ -1,6 +1,7 @@
 services:
   web:
     image: vedant4117g/carsbyvedant:latest
+    restart: always
     ports:
       - "80:8080"
     depends_on:
@@ -12,6 +13,7 @@ services:
 
   db:
     image: mariadb:10.11
+    restart: always
     environment:
       MARIADB_ROOT_PASSWORD: admin123
       MARIADB_DATABASE: carsdb
