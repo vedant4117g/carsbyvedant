@@ -1,0 +1,18 @@
+services:
+  web:
+    image: carsbyvedant-app:latest
+    ports:
+      - "80:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/carsdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin123
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: admin123
+      MARIADB_DATABASE: carsdb
+
